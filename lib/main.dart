@@ -1,7 +1,12 @@
+import 'package:doodle_dash/game/doodle_dash.dart';
 import 'package:flutter/material.dart';
 import 'game/util/util.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+
+import 'game/widgets/widgets.dart';
+
+import 'package:flame/game.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,6 +34,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+final Game game = DoodleDash();
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
@@ -48,15 +55,14 @@ class _MyHomePageState extends State<MyHomePage> {
               maxWidth: 800,
               minWidth: 550,
             ),
-            // child: GameWidget(
-            //   game: game,
-            //   overlayBuilderMap: <String, Widget Function(BuildContext, Game)>{
-            //     'gameOverlay': (context, game) => GameOverlay(game),
-            //     'mainMenuOverlay': (context, game) => MainMenuOverlay(game),
-            //     'gameOverOverlay': (context, game) => GameOverOverlay(game),
-            //   },
-            // ),
-            child: const Text("GameWidget"),
+            child: GameWidget(
+              game: game,
+              overlayBuilderMap: <String, Widget Function(BuildContext, Game)>{
+                'gameOverlay': (context, game) => GameOverlay(game),
+                'mainMenuOverlay': (context, game) => MainMenuOverlay(game),
+                'gameOverOverlay': (context, game) => GameOverOverlay(game),
+              },
+            ),
           );
         }),
       ),
